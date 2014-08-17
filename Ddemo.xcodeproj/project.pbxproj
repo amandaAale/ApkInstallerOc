@@ -19,6 +19,9 @@
 		3A8F07C319A0A9C90021B00C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8F079F19A0A9C90021B00C /* Cocoa.framework */; };
 		3A8F07CB19A0A9C90021B00C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F07C919A0A9C90021B00C /* InfoPlist.strings */; };
 		3A8F07CD19A0A9C90021B00C /* DdemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F07CC19A0A9C90021B00C /* DdemoTests.m */; };
+		3A8F07D919A0AD7F0021B00C /* aapt in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F07D619A0AD7F0021B00C /* aapt */; };
+		3A8F07DA19A0AD7F0021B00C /* adb in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F07D719A0AD7F0021B00C /* adb */; };
+		3A8F07DB19A0AD7F0021B00C /* apk.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F07D819A0AD7F0021B00C /* apk.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		3A8F07C819A0A9C90021B00C /* DdemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DdemoTests-Info.plist"; sourceTree = "<group>"; };
 		3A8F07CA19A0A9C90021B00C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A8F07CC19A0A9C90021B00C /* DdemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DdemoTests.m; sourceTree = "<group>"; };
+		3A8F07D619A0AD7F0021B00C /* aapt */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = aapt; sourceTree = "<group>"; };
+		3A8F07D719A0AD7F0021B00C /* adb */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = adb; sourceTree = "<group>"; };
+		3A8F07D819A0AD7F0021B00C /* apk.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = apk.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,9 @@
 		3A8F07A519A0A9C90021B00C /* Ddemo */ = {
 			isa = PBXGroup;
 			children = (
+				3A8F07D619A0AD7F0021B00C /* aapt */,
+				3A8F07D719A0AD7F0021B00C /* adb */,
+				3A8F07D819A0AD7F0021B00C /* apk.icns */,
 				3A8F07B119A0A9C90021B00C /* MingDocument.h */,
 				3A8F07B219A0A9C90021B00C /* MingDocument.m */,
 				3A8F07B419A0A9C90021B00C /* MingDocument.xib */,
@@ -236,9 +245,12 @@
 			files = (
 				3A8F07AA19A0A9C90021B00C /* InfoPlist.strings in Resources */,
 				3A8F07BB19A0A9C90021B00C /* Images.xcassets in Resources */,
+				3A8F07D919A0AD7F0021B00C /* aapt in Resources */,
 				3A8F07B019A0A9C90021B00C /* Credits.rtf in Resources */,
 				3A8F07B619A0A9C90021B00C /* MingDocument.xib in Resources */,
 				3A8F07B919A0A9C90021B00C /* MainMenu.xib in Resources */,
+				3A8F07DA19A0AD7F0021B00C /* adb in Resources */,
+				3A8F07DB19A0AD7F0021B00C /* apk.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +414,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ddemo/Ddemo-Prefix.pch";
 				INFOPLIST_FILE = "Ddemo/Ddemo-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -415,6 +428,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ddemo/Ddemo-Prefix.pch";
 				INFOPLIST_FILE = "Ddemo/Ddemo-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -436,6 +450,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "DdemoTests/DdemoTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -454,6 +469,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ddemo/Ddemo-Prefix.pch";
 				INFOPLIST_FILE = "DdemoTests/DdemoTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -479,6 +495,7 @@
 				3A8F07D219A0A9C90021B00C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3A8F07D319A0A9C90021B00C /* Build configuration list for PBXNativeTarget "DdemoTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +504,7 @@
 				3A8F07D519A0A9C90021B00C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

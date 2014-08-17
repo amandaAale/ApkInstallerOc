@@ -12,7 +12,7 @@
 				<string>apk</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>apk</string>
 			<key>CFBundleTypeName</key>
 			<string>DocumentType</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -20,7 +20,7 @@
 				<string>????</string>
 			</array>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>Viewer</string>
 			<key>NSDocumentClass</key>
 			<string>MingDocument</string>
 		</dict>
