@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MingDocument : NSDocument
+@interface MingDocument : NSDocument<NSComboBoxDataSource, NSComboBoxDelegate>
+@property (strong) NSMutableDictionary *dict;
+
+@property (weak) IBOutlet NSTextField *label;
+@property (weak) IBOutlet NSImageView *iconView;
+@property (weak) IBOutlet NSComboBox *deviceCombo;
 
 @end
