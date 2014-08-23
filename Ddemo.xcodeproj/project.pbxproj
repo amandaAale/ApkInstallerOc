@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A22A91219A90E5700345818 /* MingApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A22A91119A90E5700345818 /* MingApplicationDelegate.m */; };
 		3A8F07A019A0A9C90021B00C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8F079F19A0A9C90021B00C /* Cocoa.framework */; };
 		3A8F07AA19A0A9C90021B00C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F07A819A0A9C90021B00C /* InfoPlist.strings */; };
 		3A8F07AC19A0A9C90021B00C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F07AB19A0A9C90021B00C /* main.m */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A22A91019A90E5700345818 /* MingApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MingApplicationDelegate.h; sourceTree = "<group>"; };
+		3A22A91119A90E5700345818 /* MingApplicationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MingApplicationDelegate.m; sourceTree = "<group>"; };
 		3A8F079C19A0A9C90021B00C /* Ddemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ddemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8F079F19A0A9C90021B00C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3A8F07A219A0A9C90021B00C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -132,6 +135,8 @@
 				3A8F07B719A0A9C90021B00C /* MainMenu.xib */,
 				3A8F07BA19A0A9C90021B00C /* Images.xcassets */,
 				3A8F07A619A0A9C90021B00C /* Supporting Files */,
+				3A22A91019A90E5700345818 /* MingApplicationDelegate.h */,
+				3A22A91119A90E5700345818 /* MingApplicationDelegate.m */,
 			);
 			path = Ddemo;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A22A91219A90E5700345818 /* MingApplicationDelegate.m in Sources */,
 				3A8F07AC19A0A9C90021B00C /* main.m in Sources */,
 				3A8F07B319A0A9C90021B00C /* MingDocument.m in Sources */,
 			);
@@ -368,7 +374,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -401,7 +407,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 			};
 			name = Release;
