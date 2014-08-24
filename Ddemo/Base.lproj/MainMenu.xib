@@ -14,18 +14,18 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
-                <menuItem title="Ddemo" id="1Xt-HY-uBw">
+                <menuItem title="ApkInstaller" id="1Xt-HY-uBw">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Ddemo" systemMenu="apple" id="uQy-DD-JDr">
+                    <menu key="submenu" title="ApkInstaller" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About Ddemo" id="5kV-Vb-QxS">
+                            <menuItem title="About ApkInstaller" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Hide Ddemo" keyEquivalent="h" id="Olw-nP-bQN">
+                            <menuItem title="Hide ApkInstaller" keyEquivalent="h" id="Olw-nP-bQN">
                                 <connections>
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
                                 </connections>
@@ -37,7 +37,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                            <menuItem title="Quit Ddemo" keyEquivalent="q" id="4sb-4s-VLi">
+                            <menuItem title="Quit ApkInstaller" keyEquivalent="q" id="4sb-4s-VLi">
                                 <connections>
                                     <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
                                 </connections>
@@ -92,7 +92,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                         <items>
-                            <menuItem title="Ddemo Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                            <menuItem title="ApkInstaller Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                 <connections>
                                     <action selector="showHelp:" target="-1" id="y7X-2Q-9no"/>
                                 </connections>
