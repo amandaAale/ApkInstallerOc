@@ -55,7 +55,7 @@
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fMz-dz-Qv7">
                         <rect key="frame" x="27" y="25" width="227" height="22"/>
-                        <buttonCell key="cell" type="check" title="Uninstall old apk before installing" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="kw4-tm-yAa">
+                        <buttonCell key="cell" type="check" title="Uninstall old apk before installing" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="kw4-tm-yAa">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>

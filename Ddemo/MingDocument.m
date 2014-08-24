@@ -7,7 +7,9 @@
 //
 
 #import "MingDocument.h"
-
+@interface MingDocument()
+@property NSWindow *currentWindow;
+@end
 @implementation MingDocument
 
 
@@ -42,7 +44,8 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-    [_label setStringValue:_dict[@"label"] ];
+    _currentWindow = [aController window];
+    [_label setStringValue:_dict[@"label"]];
     [_label setFont:[NSFont systemFontOfSize:16]];
     NSImage *image = [[NSImage alloc]initWithContentsOfFile:_dict[@"icon_file"]];
     [_iconView setImage:image];
@@ -59,7 +62,6 @@
         [_installButton setEnabled:YES];
         [_checkButton setEnabled:YES];
     }
-    
 }
 
 - (void) installAPK
@@ -68,15 +70,22 @@
     NSString *cmd = [self loadAppCmd:[NSString stringWithFormat:@"adb -s %@ install -r %@", device, [_dict objectForKey:@"path"]]];
     NSString *result = [self runCommand:cmd];
     NSLog(@"install result :  %@ to %@", result, device);
+    [_installButton setEnabled:YES];
+    [_installButton setTitle:@"Install"];
 }
 
 - (IBAction)install:(id)sender {
-    
+    [_installButton setTitle:@"installing"];
+    [_installButton setEnabled:NO];
     [self performSelectorInBackground:@selector(installAPK) withObject:nil];
 }
 
 
 - (IBAction)cancel:(id)sender {
+    if(_currentWindow)
+    {
+        [_currentWindow close];
+    }
 }
 - (IBAction)check:(id)sender {
 }

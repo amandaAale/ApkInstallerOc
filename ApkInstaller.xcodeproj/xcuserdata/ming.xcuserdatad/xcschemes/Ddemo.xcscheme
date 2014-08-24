@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A8F079B19A0A9C90021B00C"
-               BuildableName = "Ddemo.app"
-               BlueprintName = "Ddemo"
-               ReferencedContainer = "container:Ddemo.xcodeproj">
+               BuildableName = "ApkInstaller.app"
+               BlueprintName = "ApkInstaller"
+               ReferencedContainer = "container:ApkInstaller.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A8F07BF19A0A9C90021B00C"
-               BuildableName = "DdemoTests.xctest"
-               BlueprintName = "DdemoTests"
-               ReferencedContainer = "container:Ddemo.xcodeproj">
+               BuildableName = "ApkInstallerTests.xctest"
+               BlueprintName = "ApkInstallerTests"
+               ReferencedContainer = "container:ApkInstaller.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A8F079B19A0A9C90021B00C"
-            BuildableName = "Ddemo.app"
-            BlueprintName = "Ddemo"
-            ReferencedContainer = "container:Ddemo.xcodeproj">
+            BuildableName = "ApkInstaller.app"
+            BlueprintName = "ApkInstaller"
+            ReferencedContainer = "container:ApkInstaller.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A8F079B19A0A9C90021B00C"
-            BuildableName = "Ddemo.app"
-            BlueprintName = "Ddemo"
-            ReferencedContainer = "container:Ddemo.xcodeproj">
+            BuildableName = "ApkInstaller.app"
+            BlueprintName = "ApkInstaller"
+            ReferencedContainer = "container:ApkInstaller.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A8F079B19A0A9C90021B00C"
-            BuildableName = "Ddemo.app"
-            BlueprintName = "Ddemo"
-            ReferencedContainer = "container:Ddemo.xcodeproj">
+            BuildableName = "ApkInstaller.app"
+            BlueprintName = "ApkInstaller"
+            ReferencedContainer = "container:ApkInstaller.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
