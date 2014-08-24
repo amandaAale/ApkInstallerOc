@@ -14,5 +14,7 @@
 @property (weak) IBOutlet NSTextField *label;
 @property (weak) IBOutlet NSImageView *iconView;
 @property (weak) IBOutlet NSComboBox *deviceCombo;
+@property (weak) IBOutlet NSButton *installButton;
+@property (weak) IBOutlet NSButton *checkButton;
 
 @end

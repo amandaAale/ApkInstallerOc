@@ -27,19 +27,71 @@
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"MingDocument";
 }
+-  (BOOL)isDocumentEdited
+{
+    return NO;
+}
+
+
+- (BOOL)hasUnautosavedChanges
+{
+    return NO;
+}
+
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
     [_label setStringValue:_dict[@"label"] ];
+    [_label setFont:[NSFont systemFontOfSize:16]];
     NSImage *image = [[NSImage alloc]initWithContentsOfFile:_dict[@"icon_file"]];
     [_iconView setImage:image];
     [_deviceCombo addItemsWithObjectValues:[_dict objectForKey:@"devices"]];
-    [_deviceCombo selectItemAtIndex:0];
+    if([[_dict objectForKey:@"devices"] count] == 0)
+    {
+        [_deviceCombo setStringValue:@"No devices"];
+        [_deviceCombo setEnabled:NO];
+        [_installButton setEnabled:NO];
+        [_checkButton setEnabled:NO];
+    } else {
+        [_deviceCombo selectItemAtIndex:0];
+        [_deviceCombo setEnabled:YES];
+        [_installButton setEnabled:YES];
+        [_checkButton setEnabled:YES];
+    }
+    
+}
 
+- (void) installAPK
+{
+    NSString *device = [_deviceCombo objectValueOfSelectedItem];
+    NSString *cmd = [self loadAppCmd:[NSString stringWithFormat:@"adb -s %@ install -r %@", device, [_dict objectForKey:@"path"]]];
+    NSString *result = [self runCommand:cmd];
+    NSLog(@"install result :  %@ to %@", result, device);
+}
+
+- (IBAction)install:(id)sender {
+    
+    [self performSelectorInBackground:@selector(installAPK) withObject:nil];
 }
 
 
+-(void)startWatchingForSerialPorts {
+    nport = IONotificationPortCreate(kIOMasterPortDefault);
+    
+    CFMutableDictionaryRef match = IOServiceMatching(kIOSerialBSDServiceValue); CFDictionarySetValue(match, CFSTR(kIOSerialBSDTypeKey), CFSTR(kIOSerialBSDAllTypes));
+    
+    CFRunLoopAddSource(CFRunLoopGetCurrent(), IONotificationPortGetRunLoopSource(nport), kCFRunLoopCommonModes); // NOTE IOServiceAddMatchingNotification uses the dictionary, so we pass a copy IOServiceAddMatchingNotification(nport, kIOPublishNotification, CFDictionaryCreateMutableCopy(NULL, 0, match), (IOServiceMatchingCallback)serial_port_added, self, &serialPortIterator);
+    while (IOIteratorNext(serialPortIterator)) {}; // could call serial_port_added(self, serialPortIterator) to notify of existing serial ports
+    IOServiceAddMatchingNotification(nport, kIOTerminatedNotification, match, (IOServiceMatchingCallback)serial_port_removed, self, &serialPortIterator);
+    while (IOIteratorNext(serialPortIterator)) {};
+    
+}
+
+- (IBAction)cancel:(id)sender {
+}
+- (IBAction)check:(id)sender {
+}
 
 + (BOOL)autosavesInPlace
 {
@@ -66,14 +118,18 @@
     
     NSString *result = [self runCommand:[self loadAppCmd:@"adb devices"]];
     NSLog(@"devices : %@", result);
-    NSUInteger index = [result rangeOfString:@"List of devices attached"].length;
-    NSArray *list = [[result substringFromIndex:index] componentsSeparatedByString:@"\n"];
-    for (id string in list) {
-        NSString *dev = [self firstStringWithPattern:@"(\\w+)\\s+device" ofString:string];
-        if (dev ) {
-            [devices addObject:dev];
+    result = [self firstStringWithPattern:@"((\\w+\\s+device\\s+)+)" ofString:result];
+    NSLog(@"devices : %@", result);
+    if (result) {
+        NSArray *list = [result componentsSeparatedByString:@"\n"];
+        for (id string in list) {
+            NSString *dev = [self firstStringWithPattern:@"(\\w+)\\s+device" ofString:string];
+            if (dev) {
+                [devices addObject:dev];
+            }
         }
     }
+    
     NSLog(@"Devices list : %@", devices);
     return devices;
 }
@@ -89,20 +145,20 @@
 
 -(NSString*) firstStringWithPattern:(NSString*)pattern ofString:(NSString*)target
 {
-	NSError* err = nil;
-	NSString* result = nil;
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern
-																		   options:NSRegularExpressionCaseInsensitive
-																			 error:&err];
-	NSTextCheckingResult* match = [regex firstMatchInString:target options:0 range:NSMakeRange(0, [target length])];
-	if (match) {
-		if ([match numberOfRanges]>1)
-			result = [target substringWithRange:[match rangeAtIndex:1]];
-		else
-			result = [target substringWithRange:[match range]];
-	}
+    NSError* err = nil;
+    NSString* result = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&err];
+    NSTextCheckingResult* match = [regex firstMatchInString:target options:0 range:NSMakeRange(0, [target length])];
+    if (match) {
+        if ([match numberOfRanges]>1)
+            result = [target substringWithRange:[match rangeAtIndex:1]];
+        else
+            result = [target substringWithRange:[match range]];
+    }
     
-	return result;
+    return result;
 }
 
 - (void) unzipIcon

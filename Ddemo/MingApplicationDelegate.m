@@ -13,5 +13,8 @@
 - (void) applicationDidFinishLaunching:(NSNotification *)notification
 {
     NSLog(@"Application is finished!!");
+    
+    io_iterator_t newDevicesIterator;
+    io_iterator_t lostDevicesIterator;
 }
 @end
