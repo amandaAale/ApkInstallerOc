@@ -76,18 +76,6 @@
 }
 
 
--(void)startWatchingForSerialPorts {
-    nport = IONotificationPortCreate(kIOMasterPortDefault);
-    
-    CFMutableDictionaryRef match = IOServiceMatching(kIOSerialBSDServiceValue); CFDictionarySetValue(match, CFSTR(kIOSerialBSDTypeKey), CFSTR(kIOSerialBSDAllTypes));
-    
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), IONotificationPortGetRunLoopSource(nport), kCFRunLoopCommonModes); // NOTE IOServiceAddMatchingNotification uses the dictionary, so we pass a copy IOServiceAddMatchingNotification(nport, kIOPublishNotification, CFDictionaryCreateMutableCopy(NULL, 0, match), (IOServiceMatchingCallback)serial_port_added, self, &serialPortIterator);
-    while (IOIteratorNext(serialPortIterator)) {}; // could call serial_port_added(self, serialPortIterator) to notify of existing serial ports
-    IOServiceAddMatchingNotification(nport, kIOTerminatedNotification, match, (IOServiceMatchingCallback)serial_port_removed, self, &serialPortIterator);
-    while (IOIteratorNext(serialPortIterator)) {};
-    
-}
-
 - (IBAction)cancel:(id)sender {
 }
 - (IBAction)check:(id)sender {
