@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C0A932AF-6297-4734-974C-9997FDCAF92A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ApkInstaller</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E3E600A480C16A98D393B3CFB8689A0670BE3AF3</key>
+		<string>github.com:trevorwang/ApkInstaller.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ApkInstaller.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E3E600A480C16A98D393B3CFB8689A0670BE3AF3</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:trevorwang/ApkInstaller.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E3E600A480C16A98D393B3CFB8689A0670BE3AF3</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E3E600A480C16A98D393B3CFB8689A0670BE3AF3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Ddemo</string>
+		</dict>
+	</array>
+</dict>
+</plist>

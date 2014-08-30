@@ -15,6 +15,10 @@
 @property (weak) IBOutlet NSImageView *iconView;
 @property (weak) IBOutlet NSComboBox *deviceCombo;
 @property (weak) IBOutlet NSButton *installButton;
-@property (weak) IBOutlet NSButton *checkButton;
+@property (weak) IBOutlet NSTextField *versionCode;
+@property (weak) IBOutlet NSTextField *versionName;
+@property (weak) IBOutlet NSTextField *appSize;
+@property (weak) IBOutlet NSProgressIndicator *process;
+@property (weak) IBOutlet NSTextField *errorMessage;
 
 @end

@@ -6,10 +6,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MingDocument">
             <connections>
-                <outlet property="checkButton" destination="fMz-dz-Qv7" id="jPC-1P-7fi"/>
+                <outlet property="appSize" destination="xFp-z6-qTK" id="8gR-va-NGl"/>
                 <outlet property="deviceCombo" destination="0d1-WX-4wQ" id="NdB-Ih-13L"/>
+                <outlet property="errorMessage" destination="Q1q-em-sZn" id="2PV-8U-wf7"/>
                 <outlet property="iconView" destination="Nuq-dM-SG2" id="cA1-5L-raF"/>
+                <outlet property="installButton" destination="xDL-uB-fLS" id="Hah-Ji-GWt"/>
                 <outlet property="label" destination="BW1-Qd-stf" id="QFb-JB-Twb"/>
+                <outlet property="process" destination="ERV-nH-TkO" id="yFM-cb-0bW"/>
+                <outlet property="versionCode" destination="CMX-nT-WFV" id="hrB-Cj-LDP"/>
+                <outlet property="versionName" destination="GCN-yY-rxS" id="Bke-ud-Jcc"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
@@ -53,16 +58,6 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fMz-dz-Qv7">
-                        <rect key="frame" x="27" y="25" width="227" height="22"/>
-                        <buttonCell key="cell" type="check" title="Uninstall old apk before installing" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="kw4-tm-yAa">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="check:" target="-2" id="qU1-vc-aha"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aM2-TO-ZNf">
                         <rect key="frame" x="328" y="18" width="83" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xjx-G7-LbI">
@@ -86,6 +81,41 @@ Gw
                             <action selector="install:" target="-2" id="n3w-AJ-CWL"/>
                         </connections>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CMX-nT-WFV">
+                        <rect key="frame" x="101" y="111" width="113" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="0Rd-Co-xzF">
+                            <font key="font" metaFont="system" size="10"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GCN-yY-rxS">
+                        <rect key="frame" x="230" y="111" width="169" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="3BE-KU-DRU">
+                            <font key="font" metaFont="system" size="10"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="ERV-nH-TkO">
+                        <rect key="frame" x="29" y="30" width="16" height="16"/>
+                    </progressIndicator>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q1q-em-sZn">
+                        <rect key="frame" x="51" y="29" width="271" height="13"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="x9E-aP-fW7">
+                            <font key="font" metaFont="system" size="10"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xFp-z6-qTK">
+                        <rect key="frame" x="403" y="111" width="81" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="Ceg-W0-J1K">
+                            <font key="font" metaFont="system" size="10"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>

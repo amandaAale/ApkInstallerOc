@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <IOKit/IOKitLib.h>
+#import <IOKit/usb/IOUSBLib.h>
 
 @interface MingApplicationDelegate : NSObject <NSApplicationDelegate>
 

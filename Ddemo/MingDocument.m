@@ -13,6 +13,11 @@
 @implementation MingDocument
 
 
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    NSLog(@"remove observer....");
+}
+
 - (id)init
 {
     self = [super init];
@@ -23,10 +28,20 @@
     return self;
 }
 
+- (void) receiveNotification:(NSNotification *) notification {
+    NSLog(@"notify : %@", [notification debugDescription]);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self reload];
+    });
+}
+
 - (NSString *)windowNibName
 {
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"usb" object:nil];
+        NSLog(@"add observer....");
     return @"MingDocument";
 }
 -  (BOOL)isDocumentEdited
@@ -45,39 +60,59 @@
 {
     [super windowControllerDidLoadNib:aController];
     _currentWindow = [aController window];
+    _errorMessage.hidden = TRUE;
+    _process.hidden = TRUE;
     [_label setStringValue:_dict[@"label"]];
-    [_label setFont:[NSFont systemFontOfSize:16]];
+    _versionCode.stringValue = [NSString stringWithFormat:@"Version Code: %@", _dict[@"versionCode"]];
+    _versionName.stringValue = [NSString stringWithFormat:@"Version Name: %@", _dict[@"versionName"]];
+    _appSize.stringValue = [NSString stringWithFormat:@"Size: %@", _dict[@"appSize"]];
     NSImage *image = [[NSImage alloc]initWithContentsOfFile:_dict[@"icon_file"]];
     [_iconView setImage:image];
-    [_deviceCombo addItemsWithObjectValues:[_dict objectForKey:@"devices"]];
-    if([[_dict objectForKey:@"devices"] count] == 0)
+    [self reload];
+   }
+
+- (void) reload
+{
+    _dict[@"devices"] = [self listDevices];
+    [_deviceCombo removeAllItems];
+    [_deviceCombo addItemsWithObjectValues:_dict[@"devices"]];
+    if([[_deviceCombo objectValues] count] == 0)
     {
         [_deviceCombo setStringValue:@"No devices"];
         [_deviceCombo setEnabled:NO];
         [_installButton setEnabled:NO];
-        [_checkButton setEnabled:NO];
     } else {
         [_deviceCombo selectItemAtIndex:0];
         [_deviceCombo setEnabled:YES];
         [_installButton setEnabled:YES];
-        [_checkButton setEnabled:YES];
     }
 }
 
-- (void) installAPK
+- (NSString*) installAPK
 {
     NSString *device = [_deviceCombo objectValueOfSelectedItem];
     NSString *cmd = [self loadAppCmd:[NSString stringWithFormat:@"adb -s %@ install -r %@", device, [_dict objectForKey:@"path"]]];
     NSString *result = [self runCommand:cmd];
     NSLog(@"install result :  %@ to %@", result, device);
-    [_installButton setEnabled:YES];
-    [_installButton setTitle:@"Install"];
+    return result;
 }
 
 - (IBAction)install:(id)sender {
-    [_installButton setTitle:@"installing"];
-    [_installButton setEnabled:NO];
-    [self performSelectorInBackground:@selector(installAPK) withObject:nil];
+    _errorMessage.hidden = YES;
+    _process.hidden = NO;
+    _installButton.enabled = NO;
+    [_process startAnimation:self];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSString *result = [[self installAPK] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSArray * array = [result componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _process.hidden = YES;
+            _errorMessage.hidden = NO;
+            _errorMessage.stringValue = [array lastObject];
+            _installButton.enabled = YES;
+        });
+    });
 }
 
 
@@ -92,7 +127,7 @@
 
 + (BOOL)autosavesInPlace
 {
-    return YES;
+    return NO;
 }
 
 
@@ -136,6 +171,10 @@
     _dict[@"package"] = [self firstStringWithPattern:@"package: name='([\\w|.|-|_]+)'" ofString:info];
     _dict[@"label"] = [self firstStringWithPattern:@"application-label:'([\\w|.|-|_]+)'" ofString:info];
     _dict[@"icon"] = [self firstStringWithPattern:@".*icon='(.+)'" ofString:info];
+    _dict[@"versionCode"] = [self firstStringWithPattern:@"versionCode='(\\d+)'" ofString:info];
+    _dict[@"versionName"] = [self firstStringWithPattern:@"versionName='(.*)'" ofString:info];
+    NSDictionary *file = [[NSFileManager defaultManager] attributesOfItemAtPath:_dict[@"path"] error:nil];
+    _dict[@"appSize"] = [NSByteCountFormatter stringFromByteCount:[file fileSize] countStyle:NSByteCountFormatterCountStyleFile];
     NSLog(@"app info is %@", _dict);
     return _dict;
 }
