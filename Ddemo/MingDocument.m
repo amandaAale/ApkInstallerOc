@@ -9,6 +9,7 @@
 #import "MingDocument.h"
 @interface MingDocument()
 @property NSWindow *currentWindow;
+@property bool installing;
 @end
 @implementation MingDocument
 
@@ -59,38 +60,44 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
+
     _currentWindow = [aController window];
     _errorMessage.hidden = TRUE;
     _process.hidden = TRUE;
+    [_deviceCombo setStringValue:@"No devices"];
+    [_deviceCombo setEnabled:NO];
+    [_installButton setEnabled:NO];
     [_label setStringValue:_dict[@"label"]];
     _versionCode.stringValue = [NSString stringWithFormat:@"Version Code: %@", _dict[@"versionCode"]];
     _versionName.stringValue = [NSString stringWithFormat:@"Version Name: %@", _dict[@"versionName"]];
     _appSize.stringValue = [NSString stringWithFormat:@"Size: %@", _dict[@"appSize"]];
     NSImage *image = [[NSImage alloc]initWithContentsOfFile:_dict[@"icon_file"]];
     [_iconView setImage:image];
+
     [self reload];
-   }
+}
 
 - (void) reload
 {
-    _dict[@"devices"] = [self listDevices];
-    [_deviceCombo removeAllItems];
-    [_deviceCombo addItemsWithObjectValues:_dict[@"devices"]];
-    if([[_deviceCombo objectValues] count] == 0)
-    {
-        [_deviceCombo setStringValue:@"No devices"];
-        [_deviceCombo setEnabled:NO];
-        [_installButton setEnabled:NO];
-    } else {
-        [_deviceCombo selectItemAtIndex:0];
-        [_deviceCombo setEnabled:YES];
-        [_installButton setEnabled:YES];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        _dict[@"devices"] = [self listDevices];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if([_dict[@"devices"] count] == 0) {
+                [_deviceCombo setStringValue:@"No devices"];
+                [_deviceCombo setEnabled:NO];
+                [_installButton setEnabled:NO];
+            } else {
+                [_deviceCombo selectItemAtIndex:0];
+                [_deviceCombo setEnabled:!_installing];
+                [_installButton setEnabled:!_installing];
+            }
+        });
+    });
 }
 
 - (NSString*) installAPK
 {
-    NSString *device = [_deviceCombo objectValueOfSelectedItem];
+    NSString *device = [[_dict[@"devices"] objectAtIndex:[_deviceCombo indexOfSelectedItem]] objectForKey:@"serial"];
     NSString *cmd = [self loadAppCmd:[NSString stringWithFormat:@"adb -s %@ install -r %@", device, [_dict objectForKey:@"path"]]];
     NSString *result = [self runCommand:cmd];
     NSLog(@"install result :  %@ to %@", result, device);
@@ -101,16 +108,19 @@
     _errorMessage.hidden = YES;
     _process.hidden = NO;
     _installButton.enabled = NO;
+    _deviceCombo.enabled = NO;
     [_process startAnimation:self];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        _installing = YES;
         NSString *result = [[self installAPK] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSArray * array = [result componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
+            _installing = NO;
             _process.hidden = YES;
             _errorMessage.hidden = NO;
             _errorMessage.stringValue = [array lastObject];
             _installButton.enabled = YES;
+            _deviceCombo.enabled = YES;
         });
     });
 }
@@ -130,6 +140,15 @@
     return NO;
 }
 
+-(NSInteger) numberOfItemsInComboBox:(NSComboBox *)aComboBox {
+    return [_dict[@"devices"] count];
+}
+
+-(id) comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index {
+    NSDictionary *dict = [_dict[@"devices"] objectAtIndex:index];
+    return [NSString stringWithFormat:@"%@ - %@", dict[@"model"], dict[@"serial"]];
+}
+
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
 {
@@ -144,6 +163,7 @@
     return YES;
 }
 
+
 - (NSArray*)listDevices
 {
     NSMutableArray *devices = [[NSMutableArray alloc]init];
@@ -157,7 +177,11 @@
         for (id string in list) {
             NSString *dev = [self firstStringWithPattern:@"(\\w+)\\s+device" ofString:string];
             if (dev) {
-                [devices addObject:dev];
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                dict[@"serial"] = dev;
+                NSString * cmd = [NSString stringWithFormat:@"adb -s %@ shell getprop ro.product.model", dev];
+                dict[@"model"] = [[self runCommand:[self loadAppCmd:cmd]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                [devices addObject:dict];
             }
         }
     }
