@@ -454,7 +454,7 @@
 					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Ddemo/Ddemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "Ddemo/ApkInstaller-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -477,7 +477,7 @@
 					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Ddemo/Ddemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "Ddemo/ApkInstaller-Prefix.pch";
 				INFOPLIST_FILE = "DdemoTests/ApkInstallerTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = ApkInstallerTests;

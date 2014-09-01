@@ -98,7 +98,7 @@
 - (NSString*) installAPK
 {
     NSString *device = [[_dict[@"devices"] objectAtIndex:[_deviceCombo indexOfSelectedItem]] objectForKey:@"serial"];
-    NSString *cmd = [self loadAppCmd:[NSString stringWithFormat:@"adb -s %@ install -r %@", device, [_dict objectForKey:@"path"]]];
+    NSString *cmd = [self loadAppCmd:[NSString stringWithFormat:@"adb -s %@ install -r \"%@\"", device, [_dict objectForKey:@"path"]]];
     NSString *result = [self runCommand:cmd];
     NSLog(@"install result :  %@ to %@", result, device);
     return result;
@@ -154,7 +154,7 @@
 {
     _dict[@"path"] = [url path];
     NSLog(@"url : %@ ", [url path]);
-    NSString* cmd = [NSString stringWithFormat: @"aapt d badging %@", _dict[@"path"]];
+    NSString* cmd = [NSString stringWithFormat: @"aapt d badging \"%@\"", _dict[@"path"]];
     NSString *result = [self runCommand: [self loadAppCmd:cmd]];
     NSLog(@"cmd result ==>\n%@\n", result);
     [self readAppInfo:result];
@@ -193,7 +193,7 @@
 - (NSDictionary *) readAppInfo: (NSString *)info
 {
     _dict[@"package"] = [self firstStringWithPattern:@"package: name='([\\w|.|-|_]+)'" ofString:info];
-    _dict[@"label"] = [self firstStringWithPattern:@"application-label:'([\\w|.|-|_]+)'" ofString:info];
+    _dict[@"label"] = [self firstStringWithPattern:@"application-label:'(.+)'" ofString:info];
     _dict[@"icon"] = [self firstStringWithPattern:@".*icon='(.+)'" ofString:info];
     _dict[@"versionCode"] = [self firstStringWithPattern:@"versionCode='(\\d+)'" ofString:info];
     _dict[@"versionName"] = [self firstStringWithPattern:@"versionName='(.*)'" ofString:info];
@@ -224,7 +224,7 @@
 - (void) unzipIcon
 {
     [self runCommand: [NSString stringWithFormat: @"rm -rf %@", _dict[@"icon_file"]]];
-    NSString*cmd = [NSString stringWithFormat:@"unzip -p %@ %@ > %@", _dict[@"path"], _dict[@"icon"], _dict[@"icon_file"]];
+    NSString*cmd = [NSString stringWithFormat:@"unzip -p \"%@\" %@ > %@", _dict[@"path"], _dict[@"icon"], _dict[@"icon_file"]];
     [self runCommand:cmd];
 }
 
